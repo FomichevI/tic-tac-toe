@@ -8,7 +8,13 @@ using UnityEngine;
 public class GameplayWithBot : Gameplay
 {
     [SerializeField] private float _averageBotTurnDelay = 2f;
+    private BotConfig _botConfig;
 
+    public override void Initialise(GridPrefab gridPrefab)
+    {
+        _botConfig = GameManager.Instance.SessionConfig.CurrentBot;
+        base.Initialise(gridPrefab);
+    }
 
     protected override void TurnPlayer()
     {
@@ -48,13 +54,18 @@ public class GameplayWithBot : Gameplay
                     availableMoves.Add(_grid[i, j]);
             }
         }
-        // Если удалось найти лучший ход при помощи логики, выбираем его
-        Cell bestMove = ChooseBestMove(availableMoves);
-        if (bestMove != null)
-            return bestMove;
 
-        // Если лучший ход найти не удалось, выбираем рандомный ход из предложенных
-        Debug.Log("Рандомный ход");
+        // С определенным шансом бот не делает рандомный ход в зависимости от своей сложности
+        if (Random.Range(0, 100) > _botConfig.RandomTurnChance)
+        {
+            // Если удалось найти лучший ход при помощи логики, выбираем его
+            Cell bestMove = ChooseBestMove(availableMoves);
+            if (bestMove != null)
+                return bestMove;
+        }
+
+        // Если лучший ход найти не удалось или бот должен выбрать рандомный ход, то он делает его
+        Debug.Log("[BOT] Рандомный ход");
         return availableMoves[Random.Range(0, availableMoves.Count)];
     }
 
@@ -86,7 +97,7 @@ public class GameplayWithBot : Gameplay
         CellValue botValue = _isPlayerFirst ? CellValue.O : CellValue.X;
         finishMove = CheckValueInLines(availableMoves, botValue);
         if (finishMove != null)
-            Debug.Log("Найден победный ход");
+            Debug.Log("[BOT] Найден победный ход");
         return finishMove;
     }
 
@@ -99,7 +110,7 @@ public class GameplayWithBot : Gameplay
         CellValue playerValue = _isPlayerFirst ? CellValue.X : CellValue.O;
         finishMove = CheckValueInLines(availableMoves, playerValue);
         if (finishMove != null)
-            Debug.Log("Найден ход для предотвращения победы игрока");
+            Debug.Log("[BOT] Найден ход для предотвращения победы игрока");
         return finishMove;
     }
 

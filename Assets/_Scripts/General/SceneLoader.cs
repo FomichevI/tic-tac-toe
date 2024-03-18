@@ -21,7 +21,6 @@ public class SceneLoader : MonoBehaviour
     { 
         if (SceneManager.GetActiveScene().name == _gameplaySceneName)
             return;
-        Debug.Log(SceneManager.GetActiveScene().name);
         SceneManager.LoadSceneAsync(1);
     }
 

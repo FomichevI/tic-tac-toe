@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// В будущем класс будет не нужен. Необходим для получения информации о Cell в сетке
+// В будущем класс будет не нужен (будет заменен на генерацию уровня по параметрам). Необходим для получения информации о всех Cell в сетке
 public class GridPrefab : MonoBehaviour
 {
     public Row[] Rows;

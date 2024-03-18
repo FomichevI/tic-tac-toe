@@ -13,6 +13,7 @@ public class UiGameplay : MonoBehaviour
     [SerializeField] private UiPlayerFild _playerFild;
     [SerializeField] private UiPlayerFild _opponentFild;
     [SerializeField] private TextMeshProUGUI _currentTurnTmp;
+    [SerializeField] private FinishPannel _finishPannel;
     private Gameplay _gameplay;
 
     public void Initialize(Gameplay gameplay)
@@ -20,12 +21,14 @@ public class UiGameplay : MonoBehaviour
         _gameplay = gameplay;
         _gameplay.OnFirstTurnDefined.AddListener(SetPlayersFilds);
         _gameplay.OnTernChanged.AddListener(ChangeCurrentTurnVisual);
+        _gameplay.OnMatchFinished.AddListener(ShowFinishPannel);
     }
 
     private void OnDisable()
     {
         _gameplay.OnFirstTurnDefined.RemoveListener(SetPlayersFilds);
         _gameplay.OnTernChanged.RemoveListener(ChangeCurrentTurnVisual);
+        _gameplay.OnMatchFinished.RemoveListener(ShowFinishPannel);
     }
 
     private void ChangeCurrentTurnVisual(bool isPlayerTurn)
@@ -37,5 +40,10 @@ public class UiGameplay : MonoBehaviour
     {
         _playerFild.SetValues(true, isPlayerFirst);
         _opponentFild.SetValues(false, !isPlayerFirst);
+    }
+
+    private void ShowFinishPannel()
+    {
+        _finishPannel.Show();
     }
 }

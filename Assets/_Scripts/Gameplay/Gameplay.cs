@@ -18,6 +18,9 @@ public class Gameplay : MonoBehaviour
     /// </summary>
     [HideInInspector] public UnityEvent<bool> OnFirstTurnDefined;
 
+    [HideInInspector] public UnityEvent OnMatchFinished;
+
+    [SerializeField] private Timer _timer;
 
     protected bool _isWinnerDetermined = false; // Переменная для проверки, определен ли лидер в текущем раунде
     protected bool _isPlayerFirst; // Переменная для определения, ходит первым игрок или его оппонент
@@ -30,7 +33,7 @@ public class Gameplay : MonoBehaviour
     private bool _isInitialized = false; public bool IsInitialized { get { return _isInitialized; } } // Переменная для проверки, закончилась ли инициализация геймплея
     protected bool _canUseCellButton = true;
 
-    public void Initialise(GridPrefab gridPrefab)
+    public virtual void Initialise(GridPrefab gridPrefab)
     {
         // Заплняем сетку 
         _grid = new Cell[gridPrefab.Rows.Length, gridPrefab.Rows[0].Cells.Length];
@@ -59,11 +62,23 @@ public class Gameplay : MonoBehaviour
     public virtual void StartGame()
     {
         Debug.Log("Игра началась!");
+        _timer.StartTimer();
 
         if (_isPlayerFirst)
             TurnPlayer();
         else
             TurnOpponent();
+    }
+
+    public void StopGame()
+    {
+        _timer.StopTimer();
+        // Необходима дополнительная реализация для предотвращения багов (например, остановка и перезапуск куратин в игре с ботом)
+    }
+
+    public void ContinueGame()
+    {
+        _timer.StartTimer();
     }
 
     protected virtual void TurnPlayer()
@@ -107,7 +122,7 @@ public class Gameplay : MonoBehaviour
         // Если поле полностью заполнено, то игра заканчивается ничьей
         if (CheckGridFilled())
         {
-            GameOver();
+            GameOver(CellValue.Empty);
             return;
         }
 
@@ -162,7 +177,7 @@ public class Gameplay : MonoBehaviour
 
             if (currentLineLength >= _lineLengthToWin)
             {
-                Debug.Log("Победа по строке: " + (row + 1));
+                //Debug.Log("Победа по строке: " + (row + 1));
                 Win(cell.CellValue);
                 break;
             }
@@ -186,7 +201,7 @@ public class Gameplay : MonoBehaviour
 
             if (currentLineLength >= _lineLengthToWin)
             {
-                Debug.Log("Победа по столбцу: " + (col + 1));
+                //Debug.Log("Победа по столбцу: " + (col + 1));
                 Win(cell.CellValue);
                 break;
             }
@@ -223,7 +238,12 @@ public class Gameplay : MonoBehaviour
             else
                 currentLineLength = 0;
 
-            if (currentLineLength >= _lineLengthToWin) Debug.Log("Победа по диагонали: 1");
+            if (currentLineLength >= _lineLengthToWin) 
+            { 
+                //Debug.Log("Победа по диагонали: 1");
+                Win(cell.CellValue);
+                break;
+            }
 
             extremeCol++;
             // Проверка на случай, если строк в сетке больше, чем столбцов
@@ -251,7 +271,12 @@ public class Gameplay : MonoBehaviour
             else
                 currentLineLength = 0;
 
-            if (currentLineLength >= _lineLengthToWin) Debug.Log("Победа по диагонали: 2");
+            if (currentLineLength >= _lineLengthToWin) 
+            { 
+                //Debug.Log("Победа по диагонали: 2"); 
+                Win(cell.CellValue);
+                break;
+            }
 
             extremeCol--;
             // Проверка на случай, если строк в сетке больше, чем столбцов
@@ -277,13 +302,30 @@ public class Gameplay : MonoBehaviour
     protected virtual void Win(CellValue cellvalue)
     {
         _isWinnerDetermined = true;
-        Debug.Log("Победили " + cellvalue);
-        GameOver();
+        GameOver(cellvalue);
     }
 
-    protected virtual void GameOver()
+    protected virtual void GameOver(CellValue cellvalue)
     {
-        if (!_isWinnerDetermined)
+        // Определяем результат матча
+        MatchResult matchResult = MatchResult.Draw;
+
+        if (!_isWinnerDetermined || cellvalue == CellValue.Empty)
+        {
             Debug.Log("Ничья!");
+            matchResult = MatchResult.Draw;
+        }
+        else
+        {
+            Debug.Log("Победили " + cellvalue);
+            if ((cellvalue == CellValue.X && _isPlayerFirst) || (cellvalue == CellValue.O && !_isPlayerFirst))
+                matchResult = MatchResult.Win;
+            else
+                matchResult = MatchResult.Lose;
+        }
+
+        // Передаем информацию о последнем матче в собственный кэш и вызываем событие окончания игры
+        GameManager.Instance.SetLastMatchResult(matchResult, _timer.CurrentTime);
+        OnMatchFinished?.Invoke();
     }
 }

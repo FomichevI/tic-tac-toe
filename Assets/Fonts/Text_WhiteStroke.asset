@@ -86,7 +86,7 @@ Material:
     - _StencilWriteMask: 255
     - _TextureHeight: 1024
     - _TextureWidth: 1024
-    - _UnderlayDilate: 0.8
+    - _UnderlayDilate: 0.35
     - _UnderlayOffsetX: 0
     - _UnderlayOffsetY: 0
     - _UnderlaySoftness: 0
@@ -104,7 +104,7 @@ Material:
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 0.24265754, g: 0.31560168, b: 0.38679248, a: 1}
+    - _UnderlayColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &11400000
 MonoBehaviour:
@@ -116,11 +116,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Text_BlueStroke
+  m_Name: Text_WhiteStroke
   m_EditorClassIdentifier: 
-  hashCode: -1404361240
+  hashCode: 999998961
   material: {fileID: -6806048757770736330}
-  materialHashCode: -1193558200
+  materialHashCode: 455805105
   m_Version: 1.1.0
   m_SourceFontFileGUID: fc4555309d454435cb04aafd99947be7
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: fc4555309d454435cb04aafd99947be7, type: 3}
@@ -7973,7 +7973,7 @@ MonoBehaviour:
     atlasHeight: 1024
     characterSetSelectionMode: 6
     characterSequence: 20-22,24-27,29,2B-3F,41-57,59-5A,5F,61-7B,7D,A1,BF,D4,E0-E1,E3,E7,E9-EA,ED,F1,F3-F5,FA,17B,401,410-427,42B-42D,42F-449,44B-44F,451,2013,2019,201C-201D,2026,0400-04FF
-    referencedFontAssetGUID: dd39bc98d524c1f4fa925a6b26bb8ee9
+    referencedFontAssetGUID: 5ae87560735e67d4696ba84d18408487
     referencedTextAssetGUID: 
     fontStyle: 0
     fontStyleModifier: 0
@@ -8013,7 +8013,7 @@ Texture2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Text_BlueStroke Atlas
+  m_Name: Text_WhiteStroke 1 Atlas
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000

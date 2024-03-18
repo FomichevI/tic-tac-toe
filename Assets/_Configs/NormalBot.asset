@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63f0ca79b8646914582c15a5ce19ea65, type: 3}
-  m_Name: SessionConfig
+  m_Script: {fileID: 11500000, guid: 4e72402f6fce2504db1837887232f600, type: 3}
+  m_Name: NormalBot
   m_EditorClassIdentifier: 
-  Player:
-    Name: Player
-  Opponent:
-    Name: "\u0410\u043D\u0434\u0440\u0435\u0439"
-  IsOpponentBot: 1
-  CurrentBot: {fileID: 11400000, guid: 9660dafb0ab5e024e9489013da4995c2, type: 2}
+  _type: 1
+  _name: "\u041E\u0431\u044B\u0447\u043D\u044B\u0439 \u0431\u043E\u0442"
+  _randomTurnChance: 40
