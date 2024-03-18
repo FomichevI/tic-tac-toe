@@ -10,4 +10,9 @@ using UnityEngine;
 public class PlayerData
 {
     public string Name;
+
+    public PlayerData(string name)
+    {
+        Name = name;
+    }
 }

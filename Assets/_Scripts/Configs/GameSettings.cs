@@ -24,4 +24,14 @@ public class GameSettings : ScriptableObject
                 return _rewardForDraw;
         }
     }
+
+    public BotConfig GetBotConfig(BotType botType)
+    {
+        foreach (BotConfig botConfig in BotConfigs)
+        {
+            if (botConfig.type == botType)
+                return botConfig; 
+        }
+        return null;
+    }
 }

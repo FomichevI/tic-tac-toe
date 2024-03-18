@@ -67,5 +67,6 @@ public class FinishPannel : MonoBehaviour
     public void OnBackToMenuClick()
     {
         _animator.enabled = false;
+        SceneLoader.Instance.LoadMenuScene();
     }
 }

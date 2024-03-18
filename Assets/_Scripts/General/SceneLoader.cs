@@ -8,20 +8,29 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SceneLoader : MonoBehaviour
 {
+    public static SceneLoader Instance;
+
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private string _gameplaySceneName;
     [SerializeField] private string _menuSceneName;
-
-    void Start()
+    private void Awake()
     {
-        LoadGameplayScene();
+        if (Instance == null)
+            Instance = this;
+    }
+
+    public void LoadStartScene()
+    {
+        //LoadGameplayScene();
     }
 
     public void LoadGameplayScene()
     { 
-        if (SceneManager.GetActiveScene().name == _gameplaySceneName)
-            return;
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(_gameplaySceneName);
     }
 
+    public void LoadMenuScene()
+    {
+        SceneManager.LoadSceneAsync(_menuSceneName);
+    }
 }
