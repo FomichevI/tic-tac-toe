@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 /// <summary>
@@ -10,40 +11,78 @@ using UnityEngine.UI;
 // Реализация интерфейчас максимально простая, так как не известно, каким именно будет конечный интерфейс
 public class UiGameplay : MonoBehaviour
 {
+    [HideInInspector] public UnityEvent OnFirstPlayerChosen; // Событие, вызываемое после отображения информации о ходе первого игрока
     [SerializeField] private UiPlayerFild _playerFild;
     [SerializeField] private UiPlayerFild _opponentFild;
     [SerializeField] private TextMeshProUGUI _currentTurnTmp;
     [SerializeField] private FinishPannel _finishPannel;
+    [SerializeField] private FirstTurnPannel _firstTurnPannel;
     private Gameplay _gameplay;
 
     public void Initialize(Gameplay gameplay)
     {
         _gameplay = gameplay;
-        _gameplay.OnFirstTurnDefined.AddListener(SetPlayersFilds);
+        _gameplay.OnFirstTurnDefined.AddListener(SetStartProperties);
         _gameplay.OnTernChanged.AddListener(ChangeCurrentTurnVisual);
         _gameplay.OnMatchFinished.AddListener(ShowFinishPannel);
     }
 
     private void OnDisable()
     {
-        _gameplay.OnFirstTurnDefined.RemoveListener(SetPlayersFilds);
+        _gameplay.OnFirstTurnDefined.RemoveListener(SetStartProperties);
         _gameplay.OnTernChanged.RemoveListener(ChangeCurrentTurnVisual);
         _gameplay.OnMatchFinished.RemoveListener(ShowFinishPannel);
     }
 
+    /// <summary>
+    /// Изменить визуальное оформление текущего хода при смене хода
+    /// </summary>
     private void ChangeCurrentTurnVisual(bool isPlayerTurn)
     {
         _currentTurnTmp.text = isPlayerTurn ? "Ваш ход" : "Ход соперника";
     }
 
-    private void SetPlayersFilds(bool isPlayerFirst)
+    /// <summary>
+    /// Отобразить визуал в соответствии с тем, кто ходит первым
+    /// </summary>
+    private void SetStartProperties(bool isFirstTurnOfPlayer)
     {
-        _playerFild.SetValues(true, isPlayerFirst);
-        _opponentFild.SetValues(false, !isPlayerFirst);
+        // Изменить визуальное оформление после определения хода первого игрока 
+        _playerFild.SetValues(true, isFirstTurnOfPlayer);
+        _opponentFild.SetValues(false, !isFirstTurnOfPlayer);
+        // Сразу меняем визуал текущего хода
+        ChangeCurrentTurnVisual(isFirstTurnOfPlayer);
+        // Запускаем анимацию выбора первого игрока
+        AnimateFirstTurnChoise(isFirstTurnOfPlayer);
+    }
+
+    private void AnimateFirstTurnChoise(bool isFirstTurnOfPlayer)
+    {
+        if (_firstTurnPannel != null)
+            _firstTurnPannel.StartAnimation(_gameplay.StartGame, isFirstTurnOfPlayer);
+        else
+            _gameplay.StartGame();
     }
 
     private void ShowFinishPannel()
     {
-        _finishPannel.Show();
+        StartCoroutine(ShowFinishPannelWithDelay());
+
+        IEnumerator ShowFinishPannelWithDelay()
+        {
+            yield return new WaitForSeconds(1f);
+            _finishPannel.Show();
+        }
+    }
+
+    public void OnPauseButtonClick()
+    {
+        _gameplay.StopGame();
+        PopupManager.Instance.ShowPause(_gameplay.ContinueGame);
+    }
+
+    public void OnInfoButtonClick() 
+    {
+        PopupManager.Instance.ShowLevelDescription();
     }
 }

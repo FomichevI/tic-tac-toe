@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public enum CellValue { X, O, Empty}
 
+[RequireComponent(typeof(UiAnimator))]
 public class Cell : MonoBehaviour
 {
     [HideInInspector] public UnityEvent<Cell> OnClick; // Событие, вызываемое при клике на ячейку. На него привязывается класс Gameplay
@@ -14,8 +15,14 @@ public class Cell : MonoBehaviour
     [SerializeField] private GameObject _xImage;
     [SerializeField] private GameObject _oImage;
 
+    private UiAnimator _animator; // В будущем можно использовать либой другой аниматор
     private CellValue _cellValue = CellValue.Empty; public CellValue CellValue {  get { return _cellValue; } }
     private bool _isUsed = false; public bool IsUsed { get { return _isUsed; } }
+
+    private void Awake()
+    {
+        _animator = GetComponent<UiAnimator>();
+    }
 
     private void OnDisable()
     {
@@ -31,6 +38,8 @@ public class Cell : MonoBehaviour
 
     public void ChangeValue(bool isFirstPlayer)
     {
+        _animator.ShowWithRise(0.3f);
+
         if (isFirstPlayer)
         {
             _xImage.SetActive(true);

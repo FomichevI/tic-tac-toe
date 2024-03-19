@@ -22,11 +22,9 @@ public class GameController : MonoBehaviour
             _currentGameplay = _simpleGameplay;
 
         // Настраиваем все связи и запускаем необходимые инициализации
-        Debug.Log("Инициализации уровня...");
+        Debug.Log("Инициализация уровня...");
         _uiGameplay.Initialize(_currentGameplay);
         _levelGenerator.Initialize(_currentGameplay);
-
-        _currentGameplay.StartGame();
     }
 
     private void TryStartGame()

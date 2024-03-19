@@ -5,18 +5,20 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public enum MatchResult {Win, Lose, Draw}
-
+/// <summary>
+/// Класс, хранящей в себе своеобразный КЭШ игры
+/// </summary>
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SessionConfig", order = 1)]
 public class SessionConfig : ScriptableObject
 {
-    public PlayerData Player;
-    public PlayerData Opponent;
+    public PlayerInfo Player; // Поле,хранящее в себе информацию об игроке
+    public PlayerInfo Opponent; // Поле,хранящее в себе информацию о сопернике
     public bool IsOpponentBot = false;
     public BotConfig CurrentBot;
     [Header("Match results")] // Если в будущем хотим хранить больше параметров матча, можно перенести все в отдельный класс
     public MatchResult MatchResult;
     public string OpponentName = "";
-    public float Duration = 0;
+    public float Duration = 0;    
 
     /// <summary>
     /// Сохранить параметры прошедшего матча в кэш
@@ -28,7 +30,7 @@ public class SessionConfig : ScriptableObject
         Duration = duration;
     }
 
-    public void SetNextOpponent(PlayerData opponent)
+    public void SetNextOpponent(PlayerInfo opponent)
     {
         Opponent = opponent;
         IsOpponentBot = false;

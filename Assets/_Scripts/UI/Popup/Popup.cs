@@ -26,6 +26,16 @@ public class Popup : MonoBehaviour
         _animator.ShowWithRise(0.5f);
     }
 
+    /// <summary>
+    /// —крыть попап без событий при его закрытии. Ќеобходимо дл€ избежани€ открыти€ нескольких попапов друг над другом
+    /// </summary>
+    public void Hide()
+    {
+        _animator.HideWithPulse(0.5f, () =>
+        {
+            Destroy(this.gameObject);
+        });
+    }
 
     protected void Close()
     {

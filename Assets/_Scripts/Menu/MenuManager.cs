@@ -20,7 +20,7 @@ public class MenuManager : MonoBehaviour
 
     public void OnPlayWithBotClick()
     {
-        PopupManager.instance.ShowComplexityPopup(() => PlayWithBot(BotType.Easy), 
+        PopupManager.Instance.ShowComplexity(() => PlayWithBot(BotType.Easy), 
             () => PlayWithBot(BotType.Normal), () => PlayWithBot(BotType.Hard));
     }
 
@@ -37,8 +37,16 @@ public class MenuManager : MonoBehaviour
     public void OnTwoPlayersClick()
     {
         // Запустить игру на двух игроков на одном девайсе
-        PlayerData opponent = new PlayerData("Игрок 2");
+        PlayerInfo opponent = new PlayerInfo("Игрок 2");
         GameManager.Instance.SessionConfig.SetNextOpponent(opponent);
         SceneLoader.Instance.LoadGameplayScene();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PopupManager.Instance.ShowExit(Application.Quit);
+        }
     }
 }

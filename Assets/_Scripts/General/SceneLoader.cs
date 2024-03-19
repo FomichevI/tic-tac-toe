@@ -19,18 +19,13 @@ public class SceneLoader : MonoBehaviour
             Instance = this;
     }
 
-    public void LoadStartScene()
-    {
-        //LoadGameplayScene();
-    }
-
     public void LoadGameplayScene()
-    { 
-        SceneManager.LoadSceneAsync(_gameplaySceneName);
+    {
+        _loadingScreen.LoadScene(_gameplaySceneName);
     }
 
     public void LoadMenuScene()
     {
-        SceneManager.LoadSceneAsync(_menuSceneName);
+        _loadingScreen.LoadScene(_menuSceneName);
     }
 }

@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+/// <summary>
+/// Попап, имеющий иконку, заголовок, описание. Системы ввода: кнопка закрытия, кнопки "да"/"нет",кнопка "подтвердить"
+/// </summary>
 public class SimplePopup : Popup
 {
     [Header("GameObjects to activate")]
@@ -43,7 +46,7 @@ public class SimplePopup : Popup
 
     #region Output
     /// <summary>
-    /// Установить систему вывода
+    /// Установить систему вывода (только описание)
     /// </summary>
     public void SetOutput(string description)
     {
@@ -52,7 +55,10 @@ public class SimplePopup : Popup
         _descriptionRoot.SetActive(true);
         _descriptionTmp.text = description;
     }
-   
+
+    /// <summary>
+    /// Установить систему вывода (описание и заголовок)
+    /// </summary>
     public void SetOutput(string header,string description)
     {
         _iconRoot.SetActive(false);
@@ -61,7 +67,10 @@ public class SimplePopup : Popup
         _descriptionRoot.SetActive(true);
         _descriptionTmp.text = description;
     }
-   
+
+    /// <summary>
+    /// Установить систему вывода (иконка, описание и заголовок)
+    /// </summary>
     public void SetOutput(Sprite icon, string header, string description)
     {
         _iconRoot.SetActive(true);
@@ -71,11 +80,15 @@ public class SimplePopup : Popup
         _descriptionRoot.SetActive(true);
         _descriptionTmp.text = description;
     }
-    
+
+    /// <summary>
+    /// Установить систему вывода (иконка и описание)
+    /// </summary>
     public void SetOutput(Sprite icon, string description)
     {
         _iconRoot.SetActive(true);
         _iconImg.sprite = icon;
+        _iconImg.SetNativeSize();
         _headerRoot.SetActive(false);
         _descriptionRoot.SetActive(true);
         _descriptionTmp.text = description;
@@ -85,15 +98,18 @@ public class SimplePopup : Popup
     #region Input
 
     /// <summary>
-    /// Установить систему пользовательского вывода
+    /// Установить систему пользовательского ввода (только кнопка закрытия окна)
     /// </summary>
-    public void SetInput(bool withCloseButton)
+    public void SetInput(bool withCloseButton = true)
     {
         _yesNoButtonsRoot.SetActive(false);
         _closeButtonRoot.SetActive(withCloseButton);
         _confirmButtonRoot.SetActive(false);
     }
 
+    /// <summary>
+    /// Установить систему пользовательского ввода (только кнопка закрытия окна)
+    /// </summary>
     public void SetInput(bool withCloseButton, Action onClose)
     {
         _yesNoButtonsRoot.SetActive(false);
@@ -102,6 +118,10 @@ public class SimplePopup : Popup
         _confirmButtonRoot.SetActive(false);
     }
 
+    /// <summary>
+    /// Установить систему пользовательского ввода (кнопка подтверждения)
+    /// </summary>
+    /// <param name="withCloseButton">Активация кнопки закрытия</param>
     public void SetInput(Action onConfirmClick, bool withCloseButton)
     {
         _yesNoButtonsRoot.SetActive(false);
@@ -110,6 +130,11 @@ public class SimplePopup : Popup
         _confirmButton.onClick.AddListener(onConfirmClick.Invoke);
     }
 
+    /// <summary>
+    /// Установить систему пользовательского ввода (кнопка подтверждения)
+    /// </summary>
+    /// <param name="withCloseButton">Активация кнопки закрытия</param>
+    /// <param name="confirmButtonText">Текст на кнопке подтверждения</param>
     public void SetInput(Action onConfirmClick, string confirmButtonText, bool withCloseButton)
     {
         _yesNoButtonsRoot.SetActive(false);
@@ -119,6 +144,10 @@ public class SimplePopup : Popup
         _confirmButtonTmp.text = confirmButtonText;
     }
 
+    /// <summary>
+    /// Установить систему пользовательского ввода (кнопки "ДА"/"НЕТ")
+    /// </summary>
+    /// <param name="withCloseButton">Активация кнопки закрытия</param>
     public void SetInput(Action onYesClick, Action onNoClick, bool withCloseButton)
     {
         _yesNoButtonsRoot.SetActive(true);
@@ -128,6 +157,12 @@ public class SimplePopup : Popup
         _noButton.onClick.AddListener(onNoClick.Invoke);
     }
 
+    /// <summary>
+    /// Установить систему пользовательского ввода (кнопки "ДА"/"НЕТ")
+    /// </summary>
+    /// <param name="withCloseButton">Активация кнопки закрытия</param>
+    /// <param name="yesButtonText">Текст на кнопке "ДА"</param>
+    /// <param name="noButtonText">Текст на кнопке "НЕТ"</param>
     public void SetInput(Action onYesClick, Action onNoClick, string yesButtonText, string noButtonText, bool withCloseButton)
     {
         _yesNoButtonsRoot.SetActive(true);
@@ -139,5 +174,4 @@ public class SimplePopup : Popup
         _noButtonTmp.text = noButtonText;
     }
     #endregion
-
 }
