@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -40,6 +37,11 @@ public class MenuManager : MonoBehaviour
         PlayerInfo opponent = new PlayerInfo("Игрок 2");
         GameManager.Instance.SessionConfig.SetNextOpponent(opponent);
         SceneLoader.Instance.LoadGameplayScene();
+    }
+
+    public void OnStoreClick()
+    {
+        StoreManager.Instance.Show();
     }
 
     private void Update()

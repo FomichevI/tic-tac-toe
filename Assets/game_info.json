@@ -1,0 +1,8 @@
+{
+"shopItems":
+[
+{ "key": "gold","type": "currency", "amount": 100, "price": "1.99", "currency": "usd" },
+{ "key": "silver","type": "currency", "amount": 5000, "price": "0.99", "currency": "usd" },
+{ "key": "starterPack","type": "pack", "items": [{ "key": "sword", "rare": "magic", "type": "equipment"}, { "key": "ressurect", "amount": 3,"type": "consumables" }] , "price": "1.99", "currency": "usd" }
+]
+}

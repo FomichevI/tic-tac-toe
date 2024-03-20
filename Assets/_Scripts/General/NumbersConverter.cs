@@ -16,4 +16,13 @@ public static class NumbersConverter
     {
         return ((int)(time / 60)).ToString() + ":" + string.Format("{0:00}", (int)(time % 60));
     }
+
+    /// <summary>
+    /// Вернуть значение типа "$1.99"
+    /// </summary>
+    public static string GetPrice(string price, string currency)
+    {
+        string result = (currency == "usd"? "$" : "") + price;
+        return result;
+    }
 }

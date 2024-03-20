@@ -1,7 +1,5 @@
 using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Изначально идея была создать систему, в которой достаточно было бы передавать тип системы вывода/тип системы ввода/тип визуального оформления
@@ -85,6 +83,15 @@ public class PopupManager : MonoBehaviour
         SimplePopup popup = Instantiate<SimplePopup>(_simplePopupPrefab, this.transform);
         popup.SetOutput(_config.SadSmileIcon,"Хотите выйти из игры?");
         popup.SetInput(onConfirmClick, true);
+        ShowPopup(popup);
+    }
+
+    public void ShowPurchaseResult(bool isSuccessfull)
+    {
+        string text = isSuccessfull ? "Покупка прошла успешно" : "Ошибка покупки, попробуйте снова"; 
+        SimplePopup popup = Instantiate<SimplePopup>(_simplePopupPrefab, this.transform);
+        popup.SetOutput(text);
+        popup.SetInput(true);
         ShowPopup(popup);
     }
 
