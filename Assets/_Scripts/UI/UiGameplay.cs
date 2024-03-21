@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 /// <summary>
 /// Класс, отвечающий за работу UI на сцене с геймплеем
@@ -56,6 +54,9 @@ public class UiGameplay : MonoBehaviour
         AnimateFirstTurnChoise(isFirstTurnOfPlayer);
     }
 
+    /// <summary>
+    /// Запустить визуальное отображение выбора первого игрока
+    /// </summary>
     private void AnimateFirstTurnChoise(bool isFirstTurnOfPlayer)
     {
         if (_firstTurnPannel != null)

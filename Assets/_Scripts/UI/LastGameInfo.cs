@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Класс, отвечающий за визуальное оформление информации о последней игре в главном меню игры
+/// </summary>
 public class LastGameInfo : MonoBehaviour
 {
     [SerializeField] private GameObject[] _allComponents;

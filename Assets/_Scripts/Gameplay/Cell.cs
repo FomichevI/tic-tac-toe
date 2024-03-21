@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public enum CellValue { X, O, Empty}
 
+/// <summary>
+///  ласс, реализующий работу одной клетки пол€
+/// </summary>
+// ¬ будущем можно ссылатьс€ на общие настройки игры дл€ определени€ спрайтов дл€ значков, но это не об€зательно, так как, 
+// скорее всего, уровень будет строитьс€ из префабов
 [RequireComponent(typeof(UiAnimator))]
 public class Cell : MonoBehaviour
 {

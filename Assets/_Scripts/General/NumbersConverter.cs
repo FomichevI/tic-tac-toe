@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 /// <summary>
-/// Класс для конвертации простых чисел в стринговые значения 
+/// Класс для конвертации данных в стринговые значения 
 /// </summary>
 // В этот же класс можно добавить конвертацию очков в форматы 100К, 1,3М и т.д.
 public static class NumbersConverter
@@ -18,7 +14,7 @@ public static class NumbersConverter
     }
 
     /// <summary>
-    /// Вернуть значение типа "$1.99"
+    /// Возвращает значение в формате "$1.99", где "1.99" - это string price
     /// </summary>
     public static string GetPrice(string price, string currency)
     {

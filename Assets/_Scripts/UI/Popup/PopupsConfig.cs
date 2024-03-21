@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Содержит все дополнительные материалы для генерируемых попапов
+/// </summary>
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/PopupsConfig", order = 1)]
 public class PopupsConfig : ScriptableObject
 {

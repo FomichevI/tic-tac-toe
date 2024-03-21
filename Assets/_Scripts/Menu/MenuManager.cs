@@ -10,6 +10,10 @@ public class MenuManager : MonoBehaviour
         SetScore();
     }
 
+    /// <summary>
+    /// Отобразить текущий счет игрока на верхней панеле
+    /// </summary>
+    // В будущем можно перенести в отдельный класс
     private void SetScore()
     {
         _scoreTmp.text = GameManager.Instance.DataManager.GetCurrentScore().ToString();
@@ -31,9 +35,11 @@ public class MenuManager : MonoBehaviour
         SceneLoader.Instance.LoadGameplayScene();
     }
 
+    /// <summary>
+    /// Запустить игру на двух игроков на одном девайсе
+    /// </summary>
     public void OnTwoPlayersClick()
     {
-        // Запустить игру на двух игроков на одном девайсе
         PlayerInfo opponent = new PlayerInfo("Игрок 2");
         GameManager.Instance.SessionConfig.SetNextOpponent(opponent);
         SceneLoader.Instance.LoadGameplayScene();

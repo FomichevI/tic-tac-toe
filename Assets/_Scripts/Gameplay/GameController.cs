@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -25,22 +23,5 @@ public class GameController : MonoBehaviour
         Debug.Log("Инициализация уровня...");
         _uiGameplay.Initialize(_currentGameplay);
         _levelGenerator.Initialize(_currentGameplay);
-    }
-
-    private void TryStartGame()
-    {
-        bool isAllInitializeCompleted = false;
-        // Асинхронно запускаем проверку окончания инициализации интерфейса и геймплея
-        StartCoroutine(TryStartGameCo());
-
-        IEnumerator TryStartGameCo()
-        {
-            while (!isAllInitializeCompleted)
-            {
-                yield return new WaitForSeconds(0.2f);
-                isAllInitializeCompleted = _currentGameplay.IsInitialized;
-            }
-            _currentGameplay.StartGame();
-        }
     }
 }

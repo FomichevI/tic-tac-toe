@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -146,77 +144,79 @@ public class Gameplay : MonoBehaviour
 
         // Отталкиваясь от текущего положения ячейки проверяем все вертикали, горизонтали и диагонали на наличие необходимого количества таких же значений подряд
         // Все проверки учитывают различные значения количества строк и столбцов в сетке
+        int lineLeght = 0; //длина линии из одинаковых значений подряд
+
         // Проверяем строку
-        CheckWinRow(row, cell);
+        lineLeght = CheckValueInRow(row, cell.CellValue);
+        if (lineLeght >= _lineLengthToWin) // Проверяем условие победы
+        {
+            Win(cell.CellValue);
+            return;
+        }
 
         // Проверяем столбец
-        if (_isWinnerDetermined) //Если победитель определен раньше, то проверка не требуется
+        lineLeght = CheckValueInColumn(col, cell.CellValue);
+        if (lineLeght >= _lineLengthToWin) // Проверяем условие победы
+        {
+            Win(cell.CellValue);
             return;
-        CheckWinColumn(col, cell);
+        }
 
         // Проверяем диагонали
-        if (_isWinnerDetermined) //Если победитель определен раньше, то проверка не требуется
+        lineLeght = CheckValueInDiagonals(col, row, cell.CellValue);
+        if (lineLeght >= _lineLengthToWin) // Проверяем условие победы
+        {
+            Win(cell.CellValue);
             return;
-        CheckWinDiagonals(col, row, cell);
+        }
     }
 
     /// <summary>
-    /// Проверка условия победы по строке, в которой было изменено значение ячейки
+    /// Возвращает количество ячеек в строке с искомым значением
     /// </summary>
-    /// <param name="row">Индекс строки, которой пренадлежит ячейка</param>
-    /// <param name="cell">Ячейка</param>
-    private void CheckWinRow(int row, Cell cell)
+    /// <param name="row">Индекс строки, которой пренадлежит проверяемая ячейка</param>
+    /// <param name="cellValue">Искомое значение</param>
+    protected int CheckValueInRow(int row, CellValue cellValue)
     {
-        int currentLineLength = 0; // Текущее количество необходимых значений (O или X) подряд
+        int currentCount = 0; // Текущее количество необходимых значений (O или X) подряд
         for (int j = 0; j < _grid.GetLength(1); j++)
         {
-            if (_grid[row, j].IsUsed && _grid[row, j].CellValue == cell.CellValue)
-                currentLineLength++;
-            else
-                currentLineLength = 0;
-
-            if (currentLineLength >= _lineLengthToWin)
-            {
-                //Debug.Log("Победа по строке: " + (row + 1));
-                Win(cell.CellValue);
-                break;
-            }
+            if (_grid[row, j].IsUsed && _grid[row, j].CellValue == cellValue)
+                currentCount++;
+            else if (_grid[row, j].IsUsed && _grid[row, j].CellValue != cellValue)
+                currentCount = 0;
         }
+        return currentCount;
     }
 
     /// <summary>
-    /// Проверка условия победы по столбцу, в котором было изменено значение ячейки
+    /// Возвращает количество ячеек в столбце с искомым значением
     /// </summary>
     /// <param name="col">Индекс столбца, которому пренадлежит ячейка</param>
-    /// <param name="cell">Ячейка</param>
-    private void CheckWinColumn(int col, Cell cell)
+    /// <param name="cellValue">Искомое значение</param>
+    protected int CheckValueInColumn(int col, CellValue cellValue)
     {
-        int currentLineLength = 0; // Текущее количество необходимых значений (O или X) подряд
+        int currentCount = 0; // Текущее количество необходимых значений (O или X) подряд
         for (int i = 0; i < _grid.GetLength(0); i++)
         {
-            if (_grid[i, col].IsUsed && _grid[i, col].CellValue == cell.CellValue)
-                currentLineLength++;
-            else
-                currentLineLength = 0;
-
-            if (currentLineLength >= _lineLengthToWin)
-            {
-                //Debug.Log("Победа по столбцу: " + (col + 1));
-                Win(cell.CellValue);
-                break;
-            }
+            if (_grid[i, col].IsUsed && _grid[i, col].CellValue == cellValue)
+                currentCount++;
+            else if (_grid[i, col].IsUsed && _grid[i, col].CellValue != cellValue)
+                currentCount = 0;
         }
+        return currentCount;
     }
 
     /// <summary>
-    /// Проверка условия победы по двум диагоналям, к которым пренадлежит ячейка с измененным значением
+    /// Возвращает максимальное из двух диагоналей, пренадлежащих ячейке, количество ячеек с искомым значением 
     /// </summary>
     /// <param name="col">Индекс столбца, которому пренадлежит ячейка</param>
     /// <param name="row">Индекс строки, которой пренадлежит ячейка</param>
-    /// <param name="cell">Ячейка</param>
-    private void CheckWinDiagonals(int col, int row, Cell cell)
+    /// <param name="cellValue">Искомое значение</param>
+    protected int CheckValueInDiagonals(int col, int row, CellValue cellValue)
     {
-        int currentLineLength = 0; // Текущее количество необходимых значений (O или X) подряд
+        int currentCount = 0; // Текущее количество необходимых значений (O или X) подряд
+        int maxCount = 0; // Максимальное количество необходимых значений среди двух диагоналей
         int extremeRow = 0;
         int extremeCol = 0;
         // Находим крайнюю верхнюю точку для диагонали "\"
@@ -233,24 +233,18 @@ public class Gameplay : MonoBehaviour
         // Проверяем диагональ "\"
         for (int i = extremeRow; i < _grid.GetLength(0); i++)
         {
-            if (_grid[i, extremeCol].IsUsed && _grid[i, extremeCol].CellValue == cell.CellValue)
-                currentLineLength++;
-            else
-                currentLineLength = 0;
-
-            if (currentLineLength >= _lineLengthToWin) 
-            { 
-                //Debug.Log("Победа по диагонали: 1");
-                Win(cell.CellValue);
-                break;
-            }
+            if (_grid[i, extremeCol].IsUsed && _grid[i, extremeCol].CellValue == cellValue)
+                currentCount++;
+            else if (_grid[i, extremeCol].IsUsed && _grid[i, extremeCol].CellValue != cellValue)
+                currentCount = 0;
 
             extremeCol++;
             // Проверка на случай, если строк в сетке больше, чем столбцов
             if (extremeCol >= _grid.GetLength(1))
                 break;
         }
-        currentLineLength = 0;
+        maxCount = currentCount * 1;
+        currentCount = 0;
 
         // Находим крайнюю верхнюю точку для диагонали "/"
         if (row > _grid.GetLength(1) - col - 1)
@@ -266,23 +260,18 @@ public class Gameplay : MonoBehaviour
         // Проверяем диагональ "/"
         for (int i = extremeRow; i < _grid.GetLength(0); i++)
         {
-            if (_grid[i, extremeCol].IsUsed && _grid[i, extremeCol].CellValue == cell.CellValue)
-                currentLineLength++;
-            else
-                currentLineLength = 0;
-
-            if (currentLineLength >= _lineLengthToWin) 
-            { 
-                //Debug.Log("Победа по диагонали: 2"); 
-                Win(cell.CellValue);
-                break;
-            }
+            if (_grid[i, extremeCol].IsUsed && _grid[i, extremeCol].CellValue == cellValue)
+                currentCount++;
+            else if (_grid[i, extremeCol].IsUsed && _grid[i, extremeCol].CellValue != cellValue)
+                currentCount = 0;
 
             extremeCol--;
             // Проверка на случай, если строк в сетке больше, чем столбцов
             if (extremeCol < 0)
                 break;
         }
+        maxCount = maxCount >= currentCount ? maxCount : currentCount;
+        return maxCount;
     }
 
     private bool CheckGridFilled()
@@ -305,6 +294,9 @@ public class Gameplay : MonoBehaviour
         GameOver(cellvalue);
     }
 
+    /// <summary>
+    /// Закончить игру
+    /// </summary>
     protected virtual void GameOver(CellValue cellvalue)
     {
         // Определяем результат матча

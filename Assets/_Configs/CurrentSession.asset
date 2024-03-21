@@ -10,14 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63f0ca79b8646914582c15a5ce19ea65, type: 3}
-  m_Name: SessionConfig
+  m_Name: CurrentSession
   m_EditorClassIdentifier: 
-  Player:
-    Name: Player
-  Opponent:
-    Name: "\u0411\u043E\u0442"
-  IsOpponentBot: 1
-  CurrentBot: {fileID: 11400000, guid: 9660dafb0ab5e024e9489013da4995c2, type: 2}
-  MatchResult: 0
-  OpponentName: 
-  Duration: 0
+  _player:
+    Name: "\u0418\u0433\u0440\u043E\u043A 1"

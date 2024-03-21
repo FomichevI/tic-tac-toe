@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -73,6 +71,9 @@ public class StoreManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Получить все товары из JSON-файла и распределить их по типу
+    /// </summary>
     private void LoadAllItems()
     {
         StoreItemInfo[] allItems = _loader.GetItems();
@@ -87,6 +88,9 @@ public class StoreManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Начать покупку товара с id - itemId
+    /// </summary>
     public void ByeItem(string itemId)
     {
         Debug.Log("Покупка: " +  itemId);

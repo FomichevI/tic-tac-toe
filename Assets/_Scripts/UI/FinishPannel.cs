@@ -1,9 +1,10 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Класс, отвечающий за визуальное оформление панели окончания боя
+/// </summary>
 public class FinishPannel : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
@@ -14,6 +15,7 @@ public class FinishPannel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _reward;
 
     private int lastScore = 0;
+
     public void Show()
     {
         MatchResult result = GameManager.Instance.SessionConfig.MatchResult;

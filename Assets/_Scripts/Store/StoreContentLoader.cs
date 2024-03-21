@@ -1,8 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Класс, отвечающий за загрузку из файла типа JSON
+/// </summary>
 public class StoreContentLoader : MonoBehaviour
 {
     [SerializeField] private TextAsset _info;

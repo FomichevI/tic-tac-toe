@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -20,5 +18,4 @@ public class DataManager : MonoBehaviour
         current += scoreDelta;
         PlayerPrefs.SetInt(_currentScoreKey, current > 0? current : 0);
     }
-
 }

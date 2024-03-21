@@ -1,11 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
+/// <summary>
+/// Класс, реализующий попап с несколькими кнопками, расположенными друг над другом. Пример - выбор уровня сложности
+/// </summary>
+// На данный момент максимальное количество кнопок - 4. Можно доработать для выставления любого количества кнопок, не больше условного.
+// В таком случае придется реализовывать все объекты через массив и генерировать кнопки "на ходу"
 public class MultyButtonsPopup : Popup
 {
     [Header("GameObjects to activate")]
@@ -121,7 +123,5 @@ public class MultyButtonsPopup : Popup
         _buttonThree.onClick.AddListener(onFourthButtonClick.Invoke);
         _buttonThreeTmp.text = fourthButtonText;
     }
-
     #endregion
-
 }

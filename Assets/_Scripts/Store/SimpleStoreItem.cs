@@ -1,11 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+///  ласс, управл€ющий простейшим предметом в магазине
+/// </summary>
 public class SimpleStoreItem : MonoBehaviour
 {
     [SerializeField] private Button _button;

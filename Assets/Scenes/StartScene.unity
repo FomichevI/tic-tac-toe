@@ -2924,7 +2924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c33d389fe05b4418392b202cc6dcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SessionConfig: {fileID: 11400000, guid: 4bb055fd5d54cec468be55b1162f84b1, type: 2}
+  SessionConfig: {fileID: 11400000, guid: d420303d243b1924db73723fd24e0952, type: 2}
   ItemsConfig: {fileID: 11400000, guid: 9fd8625301482524da7c9cc3ad20a380, type: 2}
   GameSettings: {fileID: 11400000, guid: 0f747367dfb1eb54c94e720002262c27, type: 2}
   DataManager: {fileID: 1495244571}

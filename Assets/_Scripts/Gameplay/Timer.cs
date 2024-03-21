@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-// Не уверен, что лучшее решение - объединать визуализацию и реализацию в одном классе. Как вариант: оставить визуал на UiGameplay, но в таком случае получается лишняя зависимость
-// даже если осуществлять ее через поле _gameplay
+// Не уверен, что лучшее решение - объединать визуализацию и реализацию в одном классе. Как вариант: оставить визуал на UiGameplay,
+// но в таком случае получается лишняя зависимость даже если осуществлять ее через поле _gameplay
+
 public class Timer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _timerTmp;

@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Класс, отвечающий за отображение информации об игроке в окне геймплея
+/// </summary>
 public class UiPlayerFild : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _nameTmp;

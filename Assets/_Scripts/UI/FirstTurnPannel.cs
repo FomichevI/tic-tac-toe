@@ -1,12 +1,10 @@
 using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// Класс, отвечающий за визуализацию определения первого игрока
+/// Класс, отвечающий за визуализацию оформление определения первого игрока
 /// </summary>
 // Стоит подумать над улучшением реализации
 public class FirstTurnPannel : MonoBehaviour

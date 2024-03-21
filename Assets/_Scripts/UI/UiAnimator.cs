@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
 
+/// <summary>
+/// Простейший аниматор для UI элементов с использованием DoTween
+/// </summary>
 public class UiAnimator : MonoBehaviour
 {
     private Vector3 _originalScale = Vector3.one;

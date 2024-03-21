@@ -1,11 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
+/// <summary>
+///  ласс, управл€ющий предметом магазина типа Pack, содержащий в себе несколько простых предметов
+/// </summary>
 public class PackStoreItem : MonoBehaviour
 {
     [SerializeField] ContentSizeFitter _sizeFitter;

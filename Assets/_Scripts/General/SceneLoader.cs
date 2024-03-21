@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Синглтон, отвечающий за переключение между сценами
@@ -17,6 +14,13 @@ public class SceneLoader : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+    }
+
+    private void Start()
+    {
+#if !UNITY_EDITOR
+        LoadMenuScene();
+#endif
     }
 
     public void LoadGameplayScene()
